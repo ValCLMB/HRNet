@@ -1,0 +1,21 @@
+.table {
+  width: 70%;
+  margin: auto;
+}
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.tableFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
