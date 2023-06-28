@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { employeesFields } from "../employeeFields";
+import { employeeFieldsTable, employeesFields } from "../employeeFields";
 import { Table } from "../Table/Table";
 
 type employee = {
@@ -30,7 +30,7 @@ export const ListEmployee = () => {
   return (
     <>
       <h2>Current employees</h2>
-      <Table fields={employeesFields} datas={employees} />
+      <Table fields={employeeFieldsTable} datas={employees} />
       <a href="/">Home</a>
     </>
   );

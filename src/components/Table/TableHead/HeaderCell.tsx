@@ -1,38 +1,26 @@
 import styles from "./TableHead.module.css";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSortUp,
-  faSortDown,
-  faSort,
-} from "@fortawesome/free-solid-svg-icons";
-
-const useSort = () => {
-  const [sort, setSort] = useState<"asc" | "desc" | null>(null);
-  const [icon, setIcon] = useState(() => faSort);
-  const handleSort = () => {
-    if (sort === "asc") {
-      setSort("desc");
-      setIcon(faSortUp);
-    } else if (sort === "desc") {
-      setSort(null);
-      setIcon(faSort);
-    } else {
-      setSort("asc");
-      setIcon(faSortDown);
-    }
-  };
-
-  return { icon, handleSort };
-};
+import { faSort } from "@fortawesome/free-solid-svg-icons";
+import { SortedDefinition } from "./TableHead";
 type HeaderCellProps = {
   label: string;
+  sortedDefinition: SortedDefinition;
+  param: string;
+  handleSort: (param: string) => void;
 };
-export const HeaderCell = ({ label }: HeaderCellProps) => {
-  const { icon, handleSort } = useSort();
+export const HeaderCell = ({
+  label,
+  param,
+  sortedDefinition,
+  handleSort,
+}: HeaderCellProps) => {
+  const icon =
+    sortedDefinition && sortedDefinition.param === param
+      ? sortedDefinition.icon
+      : faSort;
 
   return (
-    <th onClick={handleSort} className={styles.tableHeadCell}>
+    <th onClick={() => handleSort(param)} className={styles.tableHeadCell}>
       <div className={styles.tableHeadCellContent}>
         {label}
         <FontAwesomeIcon icon={icon} />

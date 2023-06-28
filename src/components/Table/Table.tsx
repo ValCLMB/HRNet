@@ -1,12 +1,12 @@
-import styles from "./Table.module.css";
+import { faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { SelectOption } from "../CreateEmployee/CreateEmployee";
-import { HeaderCell } from "./TableHead/HeaderCell";
+import { SelectOption } from "../CreateEmployee/Form";
 import { Pagination } from "./Pagination";
+import styles from "./Table.module.css";
+import { SortedDefinition, TableHead } from "./TableHead/TableHead";
 import { SearchInput } from "./TableHeader/SearchInput";
 import { SelectPageLength } from "./TableHeader/SelectPageLength";
 import { TableLength } from "./TableLength";
-import { TableHead } from "./TableHead/TableHead";
 
 const usePagination = <T extends object>(datas: T[]) => {
   const [pageLength, setPageLength] = useState(10);
@@ -68,24 +68,87 @@ const TableBody = <T extends object>({
   );
 };
 
+const useSearch = <T extends object>(datas: T[]) => {
+  const [search, setSearch] = useState("");
+
+  const filteredDatas = datas.filter((item: any) => {
+    const values = Object.values(item).join(" ").toLowerCase();
+    return values.includes(search.toLowerCase());
+  });
+
+  return { filteredDatas, setSearch };
+};
+type Sorted<T> = {
+  definition: SortedDefinition;
+  datas: T[];
+};
+
+const useSort = <T extends object>(datas: T[]) => {
+  const [sorted, setSorted] = useState<Sorted<T>>({
+    definition: null,
+    datas,
+  });
+
+  const { definition } = sorted;
+
+  useEffect(() => {
+    if (definition === null) {
+      setSorted((curr) => ({ ...curr, datas }));
+      return;
+    }
+
+    const sortData = [...datas].sort((a: any, b: any) => {
+      if (a[definition.param] < b[definition.param]) {
+        return -1;
+      }
+      if (a[definition.param] > b[definition.param]) {
+        return 1;
+      }
+      return 0;
+    });
+
+    const direction = definition.direction;
+
+    if (direction === "desc") {
+      sortData.reverse();
+    }
+
+    setSorted((curr) => ({ ...curr, datas: sortData }));
+  }, [datas, definition]);
+
+  const handleSort = (param: string) => {
+    setSorted((curr) => {
+      if (curr.definition === null || param !== curr.definition.param) {
+        return {
+          ...curr,
+          definition: { param, direction: "asc", icon: faSortUp },
+        };
+      }
+
+      if (curr.definition.direction === "asc") {
+        return {
+          ...curr,
+          definition: { param, direction: "desc", icon: faSortDown },
+        };
+      }
+
+      return {
+        ...curr,
+        definition: null,
+      };
+    });
+  };
+
+  return { sorted, handleSort };
+};
+
 export const Table = <T extends object>({
   fields,
   datas = [],
   range,
 }: TableProps<T>) => {
-  const [search, setSearch] = useState("");
-  const [filteredDatas, setFilteredDatas] = useState(datas);
-
-  useEffect(() => {
-    if (search === "") setFilteredDatas(datas);
-
-    setFilteredDatas((curr) => {
-      return curr.filter((item: any) => {
-        const values = Object.values(item).join(" ").toLowerCase();
-        return values.includes(search.toLowerCase());
-      });
-    });
-  }, [search, datas]);
+  const { sorted, handleSort } = useSort(datas);
+  const { filteredDatas, setSearch } = useSearch(sorted.datas);
   const {
     pageDatas,
     pageLength,
@@ -108,7 +171,11 @@ export const Table = <T extends object>({
         <SearchInput setSearch={setSearch} />
       </section>
       <table>
-        <TableHead fields={fields} />
+        <TableHead
+          fields={fields}
+          sortedDefinition={sorted.definition}
+          handleSort={handleSort}
+        />
         <TableBody datas={pageDatas} fields={fields} />
       </table>
       <section className={styles.tableFooter}>
