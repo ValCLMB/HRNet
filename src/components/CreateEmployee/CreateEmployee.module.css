@@ -21,6 +21,8 @@
   border-radius: 5px;
 }
 .input select {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   border-width: 0px;
   background-color: #efefef;

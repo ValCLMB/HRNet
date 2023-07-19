@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { employeeFieldsTable, employeesFields } from "../employeeFields";
-import { Table } from "../Table/Table";
+import { employeeFieldsTable } from "../employeeFields";
+import { Table } from "valclmb-react-table";
+import styles from "./ListEmployee.module.css";
 
 type employee = {
   firstName: string;
@@ -28,10 +29,10 @@ export const ListEmployee = () => {
   const employees = useLocalData("employees");
 
   return (
-    <>
+    <section className={styles.listEmployee}>
       <h2>Current employees</h2>
       <Table fields={employeeFieldsTable} datas={employees} />
       <a href="/">Home</a>
-    </>
+    </section>
   );
 };
