@@ -1,0 +1,46 @@
+.listEmployee {
+  width: 70%;
+  margin: auto;
+}
+
+.react-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+.react-table .tableHeader,
+.react-table .tableFooter {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 5px;
+}
+.react-table .tableHeader select,
+.react-table .tableHeader input,
+.react-table .tableFooter button {
+  padding: 5px 10px;
+  margin: 5px;
+}
+
+.react-table .tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.react-table .tableFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.react-table .tableHeadCell {
+  cursor: pointer;
+}
+.react-table table tbody td {
+  padding: 10px;
+}
+.react-table table tbody tr:hover {
+  background-color: #f5f5f5;
+}
