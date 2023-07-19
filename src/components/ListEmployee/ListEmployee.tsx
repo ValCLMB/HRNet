@@ -31,7 +31,7 @@ export const ListEmployee = () => {
   return (
     <section className="listEmployee">
       <h2>Current employees</h2>
-      <Table fields={employeeFieldsTable} datas={employees} />
+      <Table columns={employeeFieldsTable} datas={employees} />
       <a href="/">Home</a>
     </section>
   );
