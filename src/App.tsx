@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CreateEmployee } from "./components/CreateEmployee/CreateEmployee";
 import { ListEmployee } from "./components/ListEmployee/ListEmployee";
 

@@ -1,10 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormRegister,
-  useForm,
-} from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 import styles from "./CreateEmployee.module.css";
 import { employeesFields } from "../employeeFields";
 
@@ -28,8 +23,6 @@ const Input = ({
   type = "text",
   options,
   register,
-  required,
-  ...props
 }: InputProps) => {
   if (type === "select" && options) {
     return (
@@ -54,7 +47,11 @@ const Input = ({
   );
 };
 
-export const Form = ({ register, onSubmit }) => {
+type FormProps = {
+  register: UseFormRegister<FieldValues>;
+  onSubmit: any;
+};
+export const Form = ({ register, onSubmit }: FormProps) => {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       {/* Map the form */}
