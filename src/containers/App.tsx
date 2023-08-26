@@ -1,5 +1,5 @@
-import { CreateEmployee } from "./containers/CreateEmployee/CreateEmployee";
-import { ListEmployee } from "./containers/ListEmployee/ListEmployee";
+import { CreateEmployee } from "./CreateEmployee/CreateEmployee";
+import { ListEmployee } from "./ListEmployee/ListEmployee";
 
 function App() {
   const location = window.location.pathname;
