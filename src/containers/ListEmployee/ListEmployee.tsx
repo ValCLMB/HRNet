@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { employeeFieldsTable } from "../../components/employeeFields";
 import { Table } from "valclmb-react-table";
 import "./ListEmployee.css";
