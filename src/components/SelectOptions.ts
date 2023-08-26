@@ -1,4 +1,4 @@
-import { SelectOption } from "./CreateEmployee/Form";
+import { SelectOption } from "../containers/CreateEmployee/Form";
 
 export const departments: SelectOption[] = [
   { label: "Sales", value: "sales" },
