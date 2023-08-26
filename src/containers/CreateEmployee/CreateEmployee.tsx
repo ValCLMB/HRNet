@@ -1,27 +1,7 @@
-import { ReactNode, useState } from "react";
-import { Form } from "./Form";
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import styles from "./CreateEmployee.module.css";
-
-type ModalProps = {
-  isActive: boolean;
-  close: () => void;
-  children: ReactNode;
-};
-const Modal = ({ isActive, close, children }: ModalProps) => {
-  if (!isActive) return null;
-
-  return (
-    <div className={styles.modal}>
-      <div className={styles.modalContent}>
-        {children}{" "}
-        <button onClick={close} className={styles.closeModal}>
-          X
-        </button>
-      </div>
-    </div>
-  );
-};
+import { Modal } from "../../components/Modal/Modal";
+import { Form } from "../../components/Form/Form";
 
 const useModal = () => {
   const [modal, setModal] = useState(false);

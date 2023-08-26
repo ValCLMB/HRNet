@@ -1,5 +1,5 @@
 import { FieldValues, UseFormRegister } from "react-hook-form";
-import styles from "./CreateEmployee.module.css";
+import styles from "./Form.module.css";
 import { employeesFields } from "../../components/employeeFields";
 import { Input } from "../../components/Input/Input";
 
@@ -20,7 +20,7 @@ export const Form = ({ register, onSubmit }: FormProps) => {
         // If is Array, then it is a fieldset
         if (Array.isArray(input)) {
           return (
-            <fieldset key={input[0].category}>
+            <fieldset className={styles.fieldset} key={input[0].category}>
               <legend>{input[0].category}</legend>
               {input.map((field) => (
                 <Input
