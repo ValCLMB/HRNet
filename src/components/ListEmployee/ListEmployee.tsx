@@ -3,7 +3,7 @@ import { employeeFieldsTable } from "../employeeFields";
 import { Table } from "valclmb-react-table";
 import "./ListEmployee.css";
 
-type employee = {
+type Employee = {
   firstName: string;
   lastName: string;
   startDate: string;
@@ -18,7 +18,7 @@ type employee = {
 const useLocalData = (key: string) => {
   const localData = localStorage.getItem(key);
 
-  const [employees] = useState<employee[]>(() =>
+  const [employees] = useState<Employee[]>(() =>
     localData ? JSON.parse(localData) : []
   );
 
@@ -31,7 +31,11 @@ export const ListEmployee = () => {
   return (
     <section className="listEmployee">
       <h2>Current employees</h2>
-      <Table columns={employeeFieldsTable} datas={employees} />
+      <Table
+        columns={employeeFieldsTable}
+        datas={employees}
+        range={[5, 10, 15, 20]}
+      />
       <a href="/">Home</a>
     </section>
   );
