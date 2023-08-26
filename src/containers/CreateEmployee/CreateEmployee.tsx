@@ -1,20 +1,7 @@
-import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Modal } from "../../components/Modal/Modal";
 import { Form } from "../../components/Form/Form";
-
-const useModal = () => {
-  const [modal, setModal] = useState(false);
-
-  const closeModal = () => {
-    setModal(false);
-  };
-  const openModal = () => {
-    setModal(true);
-  };
-
-  return { modal, closeModal, openModal };
-};
+import { useModal } from "../../components/Modal/useModal";
 
 export const CreateEmployee = () => {
   const { register, handleSubmit } = useForm<FieldValues>();

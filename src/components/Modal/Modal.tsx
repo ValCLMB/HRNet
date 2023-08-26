@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import styles from "./Modal.module.css";
 
 type ModalProps = {
@@ -6,6 +6,7 @@ type ModalProps = {
   close: () => void;
   children: ReactNode;
 };
+
 export const Modal = ({ isActive, close, children }: ModalProps) => {
   if (!isActive) return null;
 
