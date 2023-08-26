@@ -2,6 +2,7 @@ import { useState } from "react";
 import { employeeFieldsTable } from "../../components/employeeFields";
 import { Table } from "valclmb-react-table";
 import "./ListEmployee.css";
+import { useLocalData } from "../../hooks/useLocalData";
 
 type Employee = {
   firstName: string;
@@ -15,18 +16,8 @@ type Employee = {
   zipCode: string;
 };
 
-const useLocalData = (key: string) => {
-  const localData = localStorage.getItem(key);
-
-  const [employees] = useState<Employee[]>(() =>
-    localData ? JSON.parse(localData) : []
-  );
-
-  return employees;
-};
-
 export const ListEmployee = () => {
-  const employees = useLocalData("employees");
+  const employees = useLocalData<Employee>("employees");
 
   return (
     <section className="listEmployee">
