@@ -1,4 +1,4 @@
-import { FieldValue, FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 import styles from "./Input.module.css";
 import { ComponentPropsWithoutRef } from "react";
 
