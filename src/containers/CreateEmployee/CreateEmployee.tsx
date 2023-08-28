@@ -2,23 +2,18 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Modal } from "../../components/Modal/Modal";
 import { Form } from "../../components/Form/Form";
 import { useModal } from "../../components/Modal/useModal";
+import { useLocalData } from "../../hooks/useLocalData";
+import { Employee } from "../ListEmployee/ListEmployee";
 
 export const CreateEmployee = () => {
   const { register, handleSubmit } = useForm<FieldValues>();
+  const { datas: previousData, addToLocalStorage } =
+    useLocalData<Employee>("employees");
   const { modal, closeModal, openModal } = useModal();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const localData = localStorage.getItem("employees");
-
-    // Save to local storage
-    if (localData) {
-      const employees = JSON.parse(localData);
-      employees.push(data);
-      localStorage.setItem("employees", JSON.stringify(employees));
-    } else {
-      localStorage.setItem("employees", JSON.stringify([data]));
-    }
-
+    addToLocalStorage([...previousData, data]);
+    console.log(previousData);
     openModal();
   };
 

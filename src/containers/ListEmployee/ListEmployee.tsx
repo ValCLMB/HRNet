@@ -3,7 +3,7 @@ import { Table } from "valclmb-react-table";
 import "./ListEmployee.css";
 import { useLocalData } from "../../hooks/useLocalData";
 
-type Employee = {
+export type Employee = {
   firstName: string;
   lastName: string;
   startDate: string;
@@ -16,16 +16,13 @@ type Employee = {
 };
 
 export const ListEmployee = () => {
-  const employees = useLocalData<Employee>("employees");
+  const { datas } = useLocalData<Employee>("employees");
+  console.log(datas);
 
   return (
     <section className="listEmployee">
       <h2>Current employees</h2>
-      <Table
-        columns={employeeFieldsTable}
-        datas={employees}
-        range={[5, 10, 15, 20]}
-      />
+      <Table columns={employeeFieldsTable} datas={datas} />
       <a href="/">Home</a>
     </section>
   );
