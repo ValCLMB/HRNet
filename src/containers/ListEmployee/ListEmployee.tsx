@@ -17,7 +17,6 @@ export type Employee = {
 
 export const ListEmployee = () => {
   const { datas } = useLocalData<Employee>("employees");
-  console.log(datas);
 
   return (
     <section className="listEmployee">
