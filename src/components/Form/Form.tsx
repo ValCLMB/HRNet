@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import styles from "./Form.module.css";
 import { employeesFields } from "../../components/employeeFields";
 import { Input } from "../../components/Input/Input";
@@ -11,8 +11,14 @@ export type SelectOption = {
 type FormProps = {
   register: UseFormRegister<FieldValues>;
   onSubmit: any;
+  errors: FieldErrors<FieldValues>;
 };
-export const Form = ({ register, onSubmit }: FormProps) => {
+export const Form = ({ register, onSubmit, errors }: FormProps) => {
+  const Error = () => {
+    if (Object.keys(errors).length === 0) return;
+
+    return <p className={styles.error}>Please fill all the fields</p>;
+  };
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       {/* Map the form */}
@@ -29,6 +35,7 @@ export const Form = ({ register, onSubmit }: FormProps) => {
                   param={field.param}
                   type={field.type}
                   options={field.options}
+                  error={errors[field.param]}
                   register={register}
                 />
               ))}
@@ -42,11 +49,15 @@ export const Form = ({ register, onSubmit }: FormProps) => {
             label={input.label}
             param={input.param}
             type={input.type}
+            error={errors[input.param]}
             options={input.options}
             register={register}
           />
         );
       })}
+
+      {/* SHOW ERROR  */}
+      <Error />
       <button className={styles.btn}>Save</button>
     </form>
   );

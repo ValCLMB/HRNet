@@ -18,3 +18,10 @@
   margin-top: 10px;
   border-radius: 5px;
 }
+.error {
+  background-color: rgb(255, 61, 61);
+  color: white;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+}

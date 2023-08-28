@@ -6,14 +6,17 @@ import { useLocalData } from "../../hooks/useLocalData";
 import { Employee } from "../ListEmployee/ListEmployee";
 
 export const CreateEmployee = () => {
-  const { register, handleSubmit } = useForm<FieldValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>();
   const { datas: previousData, addToLocalStorage } =
     useLocalData<Employee>("employees");
   const { modal, closeModal, openModal } = useModal();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     addToLocalStorage([...previousData, data]);
-    console.log(previousData);
     openModal();
   };
 
@@ -22,7 +25,11 @@ export const CreateEmployee = () => {
       <h1>HRNet</h1>
       <h2>Create employee</h2>
       <a href="/list">View current employees</a>
-      <Form register={register} onSubmit={handleSubmit(onSubmit)} />
+      <Form
+        register={register}
+        onSubmit={handleSubmit(onSubmit)}
+        errors={errors}
+      />
       <Modal isActive={modal} close={closeModal}>
         Employee Created !
       </Modal>

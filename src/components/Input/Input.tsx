@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldValues, UseFormRegister } from "react-hook-form";
 import styles from "./Input.module.css";
 import { ComponentPropsWithoutRef } from "react";
 
@@ -11,8 +11,9 @@ type InputProps = {
   label: string;
   param: string;
   type?: string;
-  register: UseFormRegister<FieldValues>;
   options?: SelectOption[];
+  error: any;
+  register: UseFormRegister<FieldValues>;
 } & ComponentPropsWithoutRef<"input">;
 
 // Input component, can be used for all input fields
@@ -21,13 +22,14 @@ export const Input = ({
   param,
   type = "text",
   options,
+  error,
   register,
 }: InputProps) => {
   if (type === "select" && options) {
     return (
       <div className={styles.input}>
         <label htmlFor={param}>{label}</label>
-        <select id={param} {...register(param)}>
+        <select id={param} {...register(param, { required: true })}>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -41,7 +43,12 @@ export const Input = ({
   return (
     <div className={styles.input}>
       <label htmlFor={param}>{label}</label>
-      <input type={type} id={param} {...register(param)} />
+      <input
+        className={error ? styles.error : ""}
+        type={type}
+        id={param}
+        {...register(param, { required: true })}
+      />
     </div>
   );
 };
